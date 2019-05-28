@@ -25,4 +25,12 @@ public class LoginInf {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "LoginInf{" +
+                "brugernavn='" + brugernavn + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

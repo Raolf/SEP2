@@ -3,10 +3,10 @@ package Common;
 import java.util.ArrayList;
 
 public class BrugerListe {
-    private ArrayList Liste;
+    private ArrayList Liste= new ArrayList();
 
-    public BrugerListe(ArrayList liste) {
-        Liste = liste;
+    public BrugerListe() {
+
     }
 
     public void getBruger(int brugerNr){
