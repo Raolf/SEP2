@@ -3,6 +3,7 @@ package ServerPackage;
 import Common.Bogliste;
 import Common.Bruger;
 import Common.LoginInf;
+import Common.SuperBogListe;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,17 +16,17 @@ public class UserHost implements Runnable{
     LoginInf loginInf = new LoginInf("Admin","Admin");
     Bogliste bogliste;
     Bruger bruger;
-    ArrayList<? extends Object> classList;
+    ArrayList<Object> classList;
     ArrayList<String> orderlist;
     String message;
     Server server;
     Method[] methods;
     Method Argument2;
+    Object retun;
 
     public UserHost(String brugerId, Server server){
-        classList = new ArrayList<Object>(){Bruger bruger; Bogliste bogliste; LoginInf loginInf;};
+        classList = new ArrayList<Object>(){Bruger bruger; Bogliste bogliste; SuperBogListe superBogListe;};
         this.server = server;
-        //classList.add(bruger);
 
     }
 
@@ -56,8 +57,10 @@ public class UserHost implements Runnable{
                     }
                     if(1==1){
                         try {
-                            Object.class.getMethod(orderlist.get(1)).invoke(orderlist.get(2));
-
+                            retun = Object.class.getMethod(orderlist.get(1)).invoke(orderlist.get(2));
+                            if(retun != null){
+                                server.send(retun);
+                            }
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {

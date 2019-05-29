@@ -19,8 +19,9 @@ import java.util.Arrays;
 public class Server implements Runnable{
     int port;
     ServerSocket serverSocket;
-    static ArrayList<InetAddress> clientList;
+    static ArrayList<InetAddress> clientList = new ArrayList<InetAddress>();
     Object pending;
+    InetAddress clientAddress;
 
     public Server (int port){
         this.port = port;
@@ -28,7 +29,6 @@ public class Server implements Runnable{
     public void run() {
         try {
             serverSocket = new ServerSocket(port);
-
 
             while(true){
 
@@ -40,23 +40,37 @@ public class Server implements Runnable{
                 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
                 String input = (String) inputStream.readObject();
-                InetAddress clientAddress = socket.getInetAddress();
-                ArrayList<String> order = new ArrayList<String>(Arrays.asList(input.split(".")));
+                System.out.println(input);
+                clientAddress = socket.getInetAddress();
+                System.out.println(input.split("\\.").length);
+                for (String s:input.split("\\.")) {
+                    System.out.println(s);
+                }
 
-                if (!clientList.contains(clientAddress)){
-                    if(order.get(0) == "hail"){
+                ArrayList<String> order = new ArrayList<String>(Arrays.asList(input.split("\\.")));
+
+                System.out.println("Order Size:" + order.size());
+                if (clientList.size() > 0 && !clientList.contains(clientAddress)){
+                    if((order.size()> 0) && order.get(0) == "hail"){
                         clientList.add(clientAddress);
-                        outputStream.writeUTF("Forbindelse oprettet");
+                        pending = ("Forbindelse oprettet");
+                        System.out.println("Forbindelse oprettet");
                     }
                 }else{
-
+                    if((order.size()> 0) && order.get(0).equals("hail")){
+                        clientList.add(clientAddress);
+                        pending = ("Forbindelse oprettet");
+                        System.out.println("Forbindelse oprettet");
+                    }
                 }
 
                 if (pending != null){
                     outputStream.writeObject(pending);
+                    System.out.println("Sending: "+ pending);
                     pending = null;
+                }else{
+                    System.out.println("null pending");
                 }
-
 
             }
         } catch (IOException e) {
