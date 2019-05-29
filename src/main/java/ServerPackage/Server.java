@@ -24,7 +24,6 @@ public class Server implements Runnable{
 
     public Server (int port){
         this.port = port;
-
     }
     public void run() {
         try {
@@ -34,7 +33,9 @@ public class Server implements Runnable{
             while(true){
 
                 Socket socket = serverSocket.accept();
-                new Server(port);
+
+                Thread thread = new Thread(new Server(port));
+                thread.start();
                 ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
@@ -66,7 +67,7 @@ public class Server implements Runnable{
 
     }
     public void newUserHost(String userId){
-        UserHost userT = new UserHost(userId);
+        UserHost userT = new UserHost(userId, this);
         Thread thread = new Thread(userT);
         thread.start();
     }

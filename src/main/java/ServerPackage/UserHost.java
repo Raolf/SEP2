@@ -5,6 +5,7 @@ import Common.Bruger;
 import Common.LoginInf;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,13 +15,17 @@ public class UserHost implements Runnable{
     LoginInf loginInf = new LoginInf("Admin","Admin");
     Bogliste bogliste;
     Bruger bruger;
-    ArrayList<?> classList;
+    ArrayList<? extends Object> classList;
     ArrayList<String> orderlist;
-    String order;
     String message;
+    Server server;
+    Method[] methods;
+    Method Argument2;
 
-    public UserHost(String brugerId){
+    public UserHost(String brugerId, Server server){
         classList = new ArrayList<Object>(){Bruger bruger; Bogliste bogliste; LoginInf loginInf;};
+        this.server = server;
+        //classList.add(bruger);
 
     }
 
@@ -31,11 +36,27 @@ public class UserHost implements Runnable{
                 orderlist = new ArrayList<String>(Arrays.asList(message.split(".")));
                 message = null;
             }
+
+            if(orderlist.get(0) == "bruger"){
+                if(orderlist.get(1) == "getBog"){
+                    server.send(bogliste.getBog(Integer.parseInt(orderlist.get(2))));
+                }else if (orderlist.get(1) == "addBog"){
+                    //bogliste.addBog();
+                }
+            }
+
             for (Object object:classList) {
                 if (orderlist != null){
+                    methods = object.getClass().getDeclaredMethods();
+                    for (Method method:methods){
+                        if (method.getName() == orderlist.get(2)){
+                            Argument2 = method;
+                            System.out.println("Executing:" + method);
+                        }
+                    }
                     if(1==1){
                         try {
-                            Object.class.getMethod(orderlist.get(1)).invoke(orderlist.get(0));
+                            Object.class.getMethod(orderlist.get(1)).invoke(orderlist.get(2));
 
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
