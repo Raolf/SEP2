@@ -35,7 +35,7 @@ public class BrugerFactory {
                 boolean issuperbruger=rs.getBoolean("superbruger");
 
                 LoginInf loginInf=new LoginInf(brugernavn,password);
-                Bruger bruger=new Bruger(loginInf, new Bogliste(new ArrayList()), brugerID, Liste);
+                Bruger bruger=new Bruger(loginInf, hentBrugerBooks(loginInf), brugerID, Liste);
 
                 BrugerListe singleBrugerListe= SingleBrugerListe.getInstance();
 
@@ -57,6 +57,49 @@ public class BrugerFactory {
         System.out.println("Database query ok ");
     }
 
+    public Bogliste hentBrugerBooks(LoginInf loginInf){
+        Connection c = null;
+        Statement stmt = null;
+        ArrayList<Bog> arrayList= new ArrayList<Bog>();
+        Bogliste bogliste=new Bogliste(arrayList);
+        try {
+            Class.forName("org.postgresql.Driver");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM \"Bibliotek\".bruger;");
+
+            while (rs.next() && new LoginValidation().validerLogin(loginInf)){
+
+                if(loginInf.getBrugernavn().equals(rs.getString("brugernavn"))){
+                    String str = rs.getString("books");
+                    if(str==null){
+                        System.out.println("Har ingen bøger");
+                    }
+                    else{
+                        String[] arrOfStr = str.split(":");
+
+                        for (String a : arrOfStr){
+                            Bog bog = Liste.getBog(Integer.parseInt(a)-1);
+                            bogliste.addBog(bog);
+                            System.out.println(bog.getTitel());
+                        }
+                    }
+                }
+            }
+
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Database query ok ");
+        return bogliste;
+    }
 
     public void lavBruger(Bruger bruger){
         Connection c = null;

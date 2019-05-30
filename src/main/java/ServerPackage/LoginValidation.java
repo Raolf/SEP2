@@ -2,6 +2,7 @@ package ServerPackage;
 
 import Common.Bog;
 import Common.Bruger;
+import Common.LoginInf;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 public class LoginValidation {
 
-    public boolean validerLogin(String brugernavn, String password){
+    public boolean validerLogin(LoginInf loginInf){
 
         boolean isvalid= false;
 
@@ -25,7 +26,7 @@ public class LoginValidation {
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"Bibliotek\".bruger;");
 
             while ( rs.next() ) {
-                if (brugernavn.equals(rs.getString("brugernavn")) && password.equals(rs.getString("password"))) {
+                if (loginInf.getBrugernavn().equals(rs.getString("brugernavn")) && loginInf.getPassword().equals(rs.getString("password"))) {
                     isvalid = true;
                 }
             }
