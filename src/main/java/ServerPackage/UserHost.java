@@ -26,6 +26,7 @@ public class UserHost implements Runnable{
 
     public UserHost(String brugerId, Server server){
         classList = new ArrayList<Object>(){Bruger bruger; Bogliste bogliste; SuperBogListe superBogListe;};
+
         this.server = server;
 
     }
@@ -34,7 +35,7 @@ public class UserHost implements Runnable{
 
         while(true){
             if(message != null){
-                orderlist = new ArrayList<String>(Arrays.asList(message.split(".")));
+                orderlist = new ArrayList<String>(Arrays.asList(message.split("\\.")));
                 message = null;
             }
 
@@ -55,7 +56,7 @@ public class UserHost implements Runnable{
                             System.out.println("Executing:" + method);
                         }
                     }
-                    if(1==1){
+                    if(Object.class.getSimpleName() == orderlist.get(0)){
                         try {
                             retun = Object.class.getMethod(orderlist.get(1)).invoke(orderlist.get(2));
                             if(retun != null){

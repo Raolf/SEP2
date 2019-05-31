@@ -21,6 +21,8 @@ public class Klient {
                 ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
                 String o = (String) inFromServer.readObject();
 
+                outToServer.writeObject("Bogliste.getBog(4)");
+
                 System.out.println(o+"END");
             } catch (UnknownHostException e) {
                 e.printStackTrace();

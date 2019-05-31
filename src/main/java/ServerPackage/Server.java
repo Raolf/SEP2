@@ -40,8 +40,9 @@ public class Server implements Runnable{
                 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
                 String input = (String) inputStream.readObject();
-                System.out.println(input);
                 clientAddress = socket.getInetAddress();
+
+                System.out.println(input);
                 System.out.println(input.split("\\.").length);
                 for (String s:input.split("\\.")) {
                     System.out.println(s);
@@ -56,11 +57,10 @@ public class Server implements Runnable{
                         pending = ("Forbindelse oprettet");
                         System.out.println("Forbindelse oprettet");
                     }
-                }else{
+                }else if(clientList.size() > 0 && clientList.contains(clientAddress)){
                     if((order.size()> 0) && order.get(0).equals("hail")){
-                        clientList.add(clientAddress);
-                        pending = ("Forbindelse oprettet");
-                        System.out.println("Forbindelse oprettet");
+                        if ()
+                        System.out.println("Besked modtaget: "+input);
                     }
                 }
 
