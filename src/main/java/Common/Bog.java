@@ -1,19 +1,24 @@
 package Common;
 
 public class Bog {
-    private TextFil tekst;
+    private String tekst;
     private String titel;
     private String forfatter;
     private int bogID;
+    private String emne;
+    private String sprog;
 
-    public Bog(TextFil tekst, String titel, String forfatter, int bogID) {
+    public Bog(String tekst, String titel, String forfatter, int bogID, String emne, String sprog) {
         this.tekst = tekst;
         this.titel = titel;
         this.forfatter = forfatter;
         this.bogID = bogID;
+        this.emne = emne;
+        this.sprog = sprog;
     }
 
-    public TextFil getTekst() {
+
+    public String getTekst() {
         return tekst;
     }
 
@@ -29,13 +34,23 @@ public class Bog {
         return bogID;
     }
 
+    public String getEmne() {
+        return emne;
+    }
+
+    public String getSprog() {
+        return sprog;
+    }
+
     @Override
     public String toString() {
-        return "Common.Bog{" +
-                "tekst=" + tekst +
+        return "Bog{" +
+                "tekst='" + tekst + '\'' +
                 ", titel='" + titel + '\'' +
                 ", forfatter='" + forfatter + '\'' +
                 ", bogID=" + bogID +
+                ", emne='" + emne + '\'' +
+                ", sprog='" + sprog + '\'' +
                 '}';
     }
 }

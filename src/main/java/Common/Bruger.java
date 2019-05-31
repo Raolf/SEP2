@@ -7,7 +7,7 @@ public class Bruger {
     private int brugerID;
 
     public Bruger(LoginInf loginfo, Bogliste bogliste, int brugerID, SuperBogListe superBogListe) {
-        Loginfo = loginfo;
+        this.Loginfo = loginfo;
         this.bogliste = bogliste;
         this.brugerID = brugerID;
         this.superBogListe= superBogListe;
