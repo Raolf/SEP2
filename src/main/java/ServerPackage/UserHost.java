@@ -7,9 +7,11 @@ import Common.SuperBogListe;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class UserHost implements Runnable{
 
@@ -18,10 +20,13 @@ public class UserHost implements Runnable{
     Bruger bruger;
     ArrayList<Object> classList;
     ArrayList<String> orderlist;
+    String[] orderArray;
     String message;
     Server server;
     Method[] methods;
-    Method Argument2;
+    Object chosenObject;
+    Method chosenAction;
+    Class<?>[] requiredParameters;
     Object retun;
 
     public UserHost(String brugerId, Server server){
@@ -39,28 +44,35 @@ public class UserHost implements Runnable{
                 message = null;
             }
 
-            if(orderlist.get(0) == "bruger"){
-                if(orderlist.get(1) == "getBog"){
-                    server.send(bogliste.getBog(Integer.parseInt(orderlist.get(2))));
-                }else if (orderlist.get(1) == "addBog"){
-                    //bogliste.addBog();
-                }
-            }
-
             for (Object object:classList) {
                 if (orderlist != null){
-                    methods = object.getClass().getDeclaredMethods();
-                    for (Method method:methods){
-                        if (method.getName() == orderlist.get(2)){
-                            Argument2 = method;
-                            System.out.println("Executing:" + method);
+                    if(object.getClass().getSimpleName() == orderlist.get(0)){
+                        chosenObject = object;
+                        methods = object.getClass().getDeclaredMethods();
+                        for (Method method:methods){
+                            if (method.getName() == orderlist.get(2)){
+                                chosenAction = method;
+                                requiredParameters = method.getParameterTypes();
+                                if (requiredParameters != null) {
+                                    if(){
+                                        x = (chosenAction.getParameterTypes()[0].cast(orderArray[0]));
+                                    }
+                                    orderArray = (String[]) orderlist.toArray();
+                                    requiredParameters[0]
+                                    System.out.println("Executing:" + method);
+                                }
+                            }
                         }
+
                     }
-                    if(Object.class.getSimpleName() == orderlist.get(0)){
+
+                    if(object.getClass().getSimpleName() == orderlist.get(0)){
+
                         try {
-                            retun = Object.class.getMethod(orderlist.get(1)).invoke(orderlist.get(2));
+                            retun = object.getClass().getMethod(orderlist.get(1)).invoke(orderlist.get(0),orderlist.get(2));
                             if(retun != null){
                                 server.send(retun);
+                                retun = null;
                             }
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
