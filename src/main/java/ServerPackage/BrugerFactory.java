@@ -11,7 +11,7 @@ public class BrugerFactory {
     private Bruger bruger;
     private Superbruger superbruger;
     private SuperBogListe Liste;
-    private SingleBrugerListe singleBrugerListe = new SingleBrugerListe();
+    private SingleBrugerListe singleBrugerListe;
 
     public BrugerFactory(SuperBogListe Liste){
         this.Liste = Liste;
@@ -37,7 +37,7 @@ public class BrugerFactory {
                 LoginInf loginInf=new LoginInf(brugernavn,password);
                 Bruger bruger=new Bruger(loginInf, hentBrugerBooks(loginInf), brugerID, Liste);
 
-                BrugerListe singleBrugerListe= SingleBrugerListe.getInstance();
+                BrugerListe singleBrugerListe= SingleBrugerListe.getInstance().getBrugerListe();
 
                 singleBrugerListe.addBruger(bruger);
 

@@ -2,6 +2,7 @@ package ServerPackage;
 
 import Common.Bruger;
 import Common.LoginInf;
+import Common.SingleBrugerListe;
 
 import javax.management.ObjectName;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class Server implements Runnable{
     static ArrayList<InetAddress> clientList = new ArrayList<InetAddress>();
     Object pending;
     InetAddress clientAddress;
+    SingleBrugerListe singleBrugerListe;
 
     public Server (int port){
         this.port = port;
@@ -31,7 +33,7 @@ public class Server implements Runnable{
             serverSocket = new ServerSocket(port);
 
             while(true){
-
+                System.out.println(singleBrugerListe);
                 Socket socket = serverSocket.accept();
 
                 Thread thread = new Thread(new Server(port));
@@ -52,14 +54,14 @@ public class Server implements Runnable{
 
                 System.out.println("Order Size:" + order.size());
                 if (clientList.size() > 0 && !clientList.contains(clientAddress)){
-                    if((order.size()> 0) && order.get(0) == "hail"){
-                        clientList.add(clientAddress);
+                    if((order.size()> 0) && order.get(0) == "login"){
+                        //for (singleBrugerListe)
                         pending = ("Forbindelse oprettet");
+                        clientList.add(clientAddress);
                         System.out.println("Forbindelse oprettet");
                     }
                 }else if(clientList.size() > 0 && clientList.contains(clientAddress)){
                     if((order.size()> 0) && order.get(0).equals("hail")){
-                        if ()
                         System.out.println("Besked modtaget: "+input);
                     }
                 }
