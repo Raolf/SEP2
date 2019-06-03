@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 public class LoginValidation {
 
-    public boolean validerLogin(LoginInf loginInf){
+    public int validerLogin(LoginInf loginInf){
 
-        boolean isvalid= false;
+        int isvalid= 0;
 
         Connection c = null;
         Statement stmt = null;
@@ -25,7 +25,8 @@ public class LoginValidation {
 
             while ( rs.next() ) {
                 if (loginInf.getBrugernavn().equals(rs.getString("brugernavn")) && loginInf.getPassword().equals(rs.getString("password"))) {
-                    isvalid = true;
+                    isvalid = Integer.parseInt(rs.getString("brugerid"));
+
                 }
             }
 

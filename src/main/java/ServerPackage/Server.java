@@ -1,10 +1,14 @@
 package ServerPackage;
 
-import Common.SingleBrugerListe;
+import Common.*;
 
+import javax.management.ObjectName;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,16 +21,24 @@ public class Server implements Runnable{
     static ArrayList<InetAddress> clientList = new ArrayList<InetAddress>();
     Object pending;
     InetAddress clientAddress;
-    SingleBrugerListe singleBrugerListe;
+    SingleBrugerListe singleBrugerListe = SingleBrugerListe.getInstance();
+    BrugerListe brugerListe = singleBrugerListe.getBrugerListe();
+    SuperBogListe superBogListe;
+    int valBruger;
+
 
     public Server (int port){
         this.port = port;
+        BogFactory bf = new BogFactory(superBogListe);
+        bf.hentBog();
+
     }
     public void run() {
         try {
             serverSocket = new ServerSocket(port);
 
             while(true){
+                LoginValidation logVal = new LoginValidation();
                 System.out.println(singleBrugerListe);
                 Socket socket = serverSocket.accept();
 
@@ -53,6 +65,15 @@ public class Server implements Runnable{
                         pending = ("Forbindelse oprettet");
                         clientList.add(clientAddress);
                         System.out.println("Forbindelse oprettet");
+                        if (order.size() > 1){
+                            valBruger = logVal.validerLogin(new LoginInf(order.get(1),order.get(2)));
+                            if(valBruger != 0){
+                                newUserHost(brugerListe.getBruger(valBruger));
+                                System.out.println("New User Host Created");
+                            } else{
+                                System.out.println("Login Failed");
+                            }
+                        }
                     }
                 }else if(clientList.size() > 0 && clientList.contains(clientAddress)){
                     if((order.size()> 0) && order.get(0).equals("hail")){
@@ -76,8 +97,8 @@ public class Server implements Runnable{
         }
 
     }
-    public void newUserHost(String userId){
-        UserHost userT = new UserHost(userId, this);
+    public void newUserHost(Bruger bruger){
+        UserHost userT = new UserHost(bruger, this);
         Thread thread = new Thread(userT);
         thread.start();
     }
@@ -86,5 +107,9 @@ public class Server implements Runnable{
     }
     public synchronized void send(Object obj) {
         pending = obj;
+    }
+
+    public SuperBogListe getSuperBogliste(){
+        return superBogListe;
     }
 }
