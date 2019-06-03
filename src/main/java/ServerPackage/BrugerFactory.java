@@ -71,7 +71,7 @@ public class BrugerFactory {
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM \"Bibliotek\".bruger;");
 
-            while (rs.next() && new LoginValidation().validerLogin(loginInf)){
+            while (rs.next() && new LoginValidation().validerLogin(loginInf) != 0){
 
                 if(loginInf.getBrugernavn().equals(rs.getString("brugernavn"))){
                     String str = rs.getString("books");
