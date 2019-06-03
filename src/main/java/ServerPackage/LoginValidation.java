@@ -1,7 +1,5 @@
 package ServerPackage;
 
-import Common.Bog;
-import Common.Bruger;
 import Common.LoginInf;
 
 import java.sql.Connection;

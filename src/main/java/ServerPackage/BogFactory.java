@@ -2,7 +2,6 @@ package ServerPackage;
 
 import Common.Bog;
 import Common.SuperBogListe;
-import Common.TextFil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

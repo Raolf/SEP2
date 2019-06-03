@@ -1,29 +1,40 @@
 package ClientPackage;
 
+import view.clientGUI;
+import javafx.application.Application;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class Klient {
 
 
+
     public static void main(String[] args){
         //while (true){
+        Scanner scanner = new Scanner(System.in);
+        clientGUI ui = new clientGUI();
             try{
-                System.out.println("1");
+
                 Socket socket = new Socket("localhost",6789);
-                System.out.println("2");
                 ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
-                outToServer.writeObject("hail.hej");
-                System.out.println("3");
+                Application.launch(ui.getClass());
                 ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
-                String o = (String) inFromServer.readObject();
 
-                outToServer.writeObject("Bogliste.getBog(4)");
 
-                System.out.println(o+"END");
+                String input = scanner.next();
+                outToServer.writeObject(input);
+                String o = (String)inFromServer.readObject();
+
+                input = scanner.next();
+                outToServer.writeObject(input);
+
+                System.out.println(o);
+
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             } catch (IOException e) {

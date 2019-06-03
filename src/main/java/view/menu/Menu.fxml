@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="30.0" prefHeight="30.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.menu.Menu">
+    <children>
+        <HBox prefHeight="30.0" prefWidth="1500.0">
+            <children>
+                <MenuBar prefHeight="33.0" prefWidth="1426.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Books">
+                            <items>
+                                <MenuItem fx:id="booksMenuBtn" mnemonicParsing="false" onAction="#getBooksTab" text="Show List" />
+                            </items></Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Users" />
+                                <MenuItem mnemonicParsing="false" text="Books" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <MenuBar maxHeight="30.0" prefHeight="30.0" prefWidth="74.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Profile">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#userBooks" text="Your Books" />
+                                <MenuItem mnemonicParsing="false" onAction="#userSettings" text="Settings" />
+                                <SeparatorMenuItem mnemonicParsing="false" />
+                                <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign Out" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </HBox>
+        <GridPane layoutX="256.0" maxHeight="30.0" prefHeight="30.0" prefWidth="963.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="98.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="146.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="232.0" minWidth="10.0" prefWidth="171.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="171.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TextField maxHeight="20.0" prefHeight="0.0" prefWidth="333.0" GridPane.columnIndex="3" GridPane.columnSpan="2" />
+                <Button mnemonicParsing="false" text="Search" GridPane.columnIndex="5">
+                    <GridPane.margin>
+                        <Insets left="5.0" />
+                    </GridPane.margin>
+                </Button>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
