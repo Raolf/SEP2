@@ -48,22 +48,12 @@ public class Server implements Runnable{
                 System.out.println(singleBrugerListe);
 
 
-<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
-=======
-
->>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
 
                 ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
-<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
                 String input = (String) inputStream.readObject();
                 inputStream.
-=======
-
-                String input = (String) inputStream.readObject();
-
->>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
                 clientAddress = socket.getInetAddress();
 
                 System.out.println(input);
@@ -93,11 +83,7 @@ public class Server implements Runnable{
                         }
                     }
                 }else if(clientList.contains(clientAddress)){
-<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
                     if((order.size()> 0) && order.get(0).equals("hail")){
-=======
-                    if((order.size()> 0)){
->>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
                         System.out.println("Besked modtaget: "+input);
                         userT.message(input);
                     }
@@ -113,10 +99,7 @@ public class Server implements Runnable{
                 }else{
                     System.out.println("null pending");
                 }
-<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
 
-=======
->>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
             }
         } catch (IOException e) {
             e.printStackTrace();

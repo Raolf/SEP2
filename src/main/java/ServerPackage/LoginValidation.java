@@ -18,10 +18,7 @@ public class LoginValidation {
         Statement stmt = null;
         try {
             Class.forName("org.postgresql.Driver");
-<<<<<<< HEAD:src/main/java/ServerPackage/LoginValidation.java
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
-=======
->>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/LoginValidation.java
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres",DBpass );
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
