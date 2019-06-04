@@ -19,7 +19,7 @@ public class Server implements Runnable{
     InetAddress clientAddress;
     SingleBrugerListe singleBrugerListe = SingleBrugerListe.getInstance();
     BrugerListe brugerListe = singleBrugerListe.getBrugerListe();
-    SuperBogListe superBogListe;
+    SuperBogListe superBogListe = new SuperBogListe(new ArrayList());
     int valBruger;
 
 

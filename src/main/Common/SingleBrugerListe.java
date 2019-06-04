@@ -4,7 +4,7 @@ public class SingleBrugerListe {
     private static BrugerListe brugerListe = null;
     private static SingleBrugerListe singleBrugerListe;
     private SingleBrugerListe() {
-        brugerListe = new BrugerListe();
+
     }
 
     public static SingleBrugerListe getInstance(){
@@ -14,6 +14,10 @@ public class SingleBrugerListe {
         return singleBrugerListe;
     }
     public BrugerListe getBrugerListe(){
+        if (brugerListe == null){
+            brugerListe = new BrugerListe();
+        }
         return brugerListe;
+
     }
 }

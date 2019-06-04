@@ -12,6 +12,7 @@ public class BogFactory {
 
     private Bog bog;
     private SuperBogListe Liste;
+    String DBpass = "Juh88bxr";
 
     public BogFactory(SuperBogListe Liste){
         this.Liste = Liste;
@@ -22,7 +23,7 @@ public class BogFactory {
         Statement stmt = null;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", DBpass);
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
@@ -64,7 +65,7 @@ public class BogFactory {
         Statement stmt = null;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", DBpass);
 
             System.out.println("Database open ok");
 
