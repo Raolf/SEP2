@@ -16,24 +16,40 @@ public class Klient {
 
     public static void main(String[] args){
         //while (true){
+        System.out.println("før scanner");
         Scanner scanner = new Scanner(System.in);
         clientUI ui = new clientUI();
+        System.out.println("efter scanner");
             try{
-
+                System.out.println("start af try");
                 Socket socket = new Socket("localhost",6789);
                 ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
-                Application.launch(ui.getClass());
                 ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
 
 
-                String input = scanner.next();
-                outToServer.writeObject(input);
+
+
+
+                outToServer.writeObject("login.bob.123");
+
+                System.out.println("Order sent");
                 String o = (String)inFromServer.readObject();
-
-                input = scanner.next();
-                outToServer.writeObject(input);
-
                 System.out.println(o);
+
+                outToServer.writeObject("Bruger.getBogListe");
+
+                o = (String) inFromServer.readObject();
+                System.out.println(o);
+
+
+                System.out.println("UI launched");
+                Application.launch(ui.getClass());
+                System.out.println("UI exited");
+
+
+
+
+
 
             } catch (UnknownHostException e) {
                 e.printStackTrace();

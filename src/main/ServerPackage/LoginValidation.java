@@ -16,7 +16,7 @@ public class LoginValidation {
         Statement stmt = null;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "2011zNTGG");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 

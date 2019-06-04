@@ -9,15 +9,17 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.lang.Thread.sleep;
+
 public class UserHost implements Runnable{
 
     LoginInf loginInf = new LoginInf("Admin","Admin");
     Bogliste bogliste;
     Bruger bruger;
     ArrayList<Object> classList;
-    ArrayList<String> orderlist;
+    ArrayList<String> orderlist = null;
     String[] orderArray;
-    String message;
+    String message = null;
     Server server;
     Method[] methods;
     Object chosenObject;
@@ -30,56 +32,63 @@ public class UserHost implements Runnable{
         this.bruger = bruger;
         this.server = server;
 
+        System.out.println("USERRRRRRRRRRRRRR " + bruger.getBrugerID());
+
     }
 
     public void run() {
 
         classList = new ArrayList<Object>();
-        classList.add(this.bruger);
+        classList.add(bruger);
         classList.add(bogliste);
         classList.add(server.getSuperBogliste());
+
         while(true){
             if(message != null){
                 orderlist = new ArrayList<String>(Arrays.asList(message.split("\\.")));
-                message = null;
-            }
+                System.out.println("USERHOST " + orderlist.get(0));
+                System.out.println(message);
+                System.out.println("SIMPLE NAME: " + orderlist.get(0).getClass().getSimpleName());
+                System.out.println("CLASSLIST: " + classList.get(0));
+                for (Object object:classList) {
+                    /*System.out.println("OBJECT: " + object.getClass().getSimpleName());
+                    System.out.println("ORDERLIST 0: " + orderlist.get(0));*/
+                    if (orderlist != null && orderlist.get(0) != null){
+                        if(object.getClass().getSimpleName().equals(orderlist.get(0))){
+                            chosenObject = object;
+                            methods = object.getClass().getDeclaredMethods();
+                            for (Method method:methods){
+                                if (method.getName().equals(orderlist.get(1))){
+                                    chosenAction = method;
+                                    requiredParameters = method.getParameterTypes();
+                                    if (requiredParameters != null) {
+                                        if(requiredParameters[0].isPrimitive()){
+                                            try {
+                                                retur = method.invoke(chosenObject,Integer.parseInt(orderlist.get(2)));
+                                            } catch (IllegalAccessException e) {
+                                                e.printStackTrace();
+                                            } catch (InvocationTargetException e) {
+                                                e.printStackTrace();
+                                            }
+                                            System.out.println("For Loop Done");
+                                        }else{
+                                            retur = chosenAction.getParameterTypes()[0].cast(orderArray[0]);
+                                        }
+                                        orderArray = (String[]) orderlist.toArray();
 
-            for (Object object:classList) {
-                if (orderlist != null){
-                    if(object.getClass().getSimpleName() == orderlist.get(0)){
-                        chosenObject = object;
-                        methods = object.getClass().getDeclaredMethods();
-                        for (Method method:methods){
-                            if (method.getName() == orderlist.get(2)){
-                                chosenAction = method;
-                                requiredParameters = method.getParameterTypes();
-                                if (requiredParameters != null) {
-                                    if(requiredParameters[0].isPrimitive()){
+                                        System.out.println("Executing:" + chosenAction + "On: " + chosenObject + "With Parameters: " + orderlist.get(2));
+                                    } else {
                                         try {
-                                            retur = method.invoke(chosenObject,Integer.parseInt(orderlist.get(2)));
+                                            chosenAction.invoke(chosenObject);
                                         } catch (IllegalAccessException e) {
                                             e.printStackTrace();
                                         } catch (InvocationTargetException e) {
                                             e.printStackTrace();
                                         }
-                                    }else{
-                                        retur = chosenAction.getParameterTypes()[0].cast(orderArray[0]);
-                                    }
-                                    orderArray = (String[]) orderlist.toArray();
-
-                                    System.out.println("Executing:" + chosenAction + "On: " + chosenObject + "With Parameters: " + orderlist.get(2));
-                                } else {
-                                    try {
-                                        chosenAction.invoke(chosenObject);
-                                    } catch (IllegalAccessException e) {
-                                        e.printStackTrace();
-                                    } catch (InvocationTargetException e) {
-                                        e.printStackTrace();
                                     }
                                 }
                             }
                         }
-
                     }
                 }
             }

@@ -1,5 +1,7 @@
 package main.ServerPackage;
 
+import main.Common.SingleBrugerListe;
+
 public class Main {
     public static void main(String[] args) {
         SingleBrugerListe singleBrugerListe = SingleBrugerListe.getInstance();
