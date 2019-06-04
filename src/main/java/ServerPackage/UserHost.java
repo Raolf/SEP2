@@ -61,6 +61,7 @@ public class UserHost implements Runnable{
                                     if(requiredParameters[0].isPrimitive()){
                                         try {
                                             retur = method.invoke(chosenObject,Integer.parseInt(orderlist.get(2)));
+                                            server.send(retur);
                                         } catch (IllegalAccessException e) {
                                             e.printStackTrace();
                                         } catch (InvocationTargetException e) {
@@ -68,6 +69,7 @@ public class UserHost implements Runnable{
                                         }
                                     }else{
                                         retur = chosenAction.getParameterTypes()[0].cast(orderArray[0]);
+                                        server.send(retur);
                                     }
                                     orderArray = (String[]) orderlist.toArray();
 

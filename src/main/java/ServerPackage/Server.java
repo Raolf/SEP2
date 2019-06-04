@@ -25,33 +25,38 @@ public class Server implements Runnable{
     BrugerListe brugerListe = singleBrugerListe.getBrugerListe();
     SuperBogListe superBogListe = new SuperBogListe(new ArrayList());
     int valBruger;
-
+    UserHost userT;
 
     public Server (int port){
         this.port = port;
-        BogFactory bf = new BogFactory(superBogListe);
-        bf.hentBog();
+        BogFactory bogF = new BogFactory(superBogListe);
+        bogF.hentBog();
+        BrugerFactory brugerF = new BrugerFactory(superBogListe);
+        brugerF.hentBruger();
 
     }
     public void run() {
         try {
             serverSocket = new ServerSocket(port);
+            Socket socket = serverSocket.accept();
+
+            Thread thread = new Thread(new Server(port));
+            thread.start();
 
             while(true){
                 LoginValidation logVal = new LoginValidation();
                 System.out.println(singleBrugerListe);
-                Socket socket = serverSocket.accept();
 
-                Thread thread = new Thread(new Server(port));
-                thread.start();
+
+
                 ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
                 String input = (String) inputStream.readObject();
+                inputStream.
                 clientAddress = socket.getInetAddress();
 
                 System.out.println(input);
-                System.out.println(input.split("\\.").length);
                 for (String s:input.split("\\.")) {
                     System.out.println(s);
                 }
@@ -59,8 +64,9 @@ public class Server implements Runnable{
                 ArrayList<String> order = new ArrayList<String>(Arrays.asList(input.split("\\.")));
 
                 System.out.println("Order Size:" + order.size());
-                if (clientList.size() > 0 && !clientList.contains(clientAddress)){
-                    if((order.size()> 0) && order.get(0) == "login"){
+                if (!clientList.contains(clientAddress)){
+                    System.out.println((order.size()> 0) && order.get(0) == "login");
+                    if((order.size()> 0) && order.get(0).equals("login")){
                         pending = ("Forbindelse oprettet");
                         clientList.add(clientAddress);
                         System.out.println("Forbindelse oprettet");
@@ -76,11 +82,15 @@ public class Server implements Runnable{
                             }
                         }
                     }
-                }else if(clientList.size() > 0 && clientList.contains(clientAddress)){
+                }else if(clientList.contains(clientAddress)){
                     if((order.size()> 0) && order.get(0).equals("hail")){
                         System.out.println("Besked modtaget: "+input);
+                        userT.message(input);
                     }
+                }else{
+
                 }
+                System.out.println("Inet: " + clientList.size());
 
                 if (pending != null){
                     outputStream.writeObject(pending);
@@ -99,7 +109,7 @@ public class Server implements Runnable{
 
     }
     public void newUserHost(Bruger bruger){
-        UserHost userT = new UserHost(bruger, this);
+        userT = new UserHost(bruger, this);
         Thread thread = new Thread(userT);
         thread.start();
     }
