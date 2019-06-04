@@ -49,7 +49,10 @@ public class Server implements Runnable{
 
 
 <<<<<<< HEAD:src/main/java/ServerPackage/Server.java
+<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
 =======
+=======
+>>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
 
 >>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
 
@@ -58,10 +61,14 @@ public class Server implements Runnable{
 
 <<<<<<< HEAD:src/main/java/ServerPackage/Server.java
                 String input = (String) inputStream.readObject();
+<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
                 inputStream.
 =======
 
                 String input = (String) inputStream.readObject();
+
+>>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
+=======
 
 >>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
                 clientAddress = socket.getInetAddress();
@@ -94,8 +101,11 @@ public class Server implements Runnable{
                     }
                 }else if(clientList.contains(clientAddress)){
 <<<<<<< HEAD:src/main/java/ServerPackage/Server.java
+<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
                     if((order.size()> 0) && order.get(0).equals("hail")){
 =======
+=======
+>>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
                     if((order.size()> 0)){
 >>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
                         System.out.println("Besked modtaget: "+input);
@@ -114,7 +124,10 @@ public class Server implements Runnable{
                     System.out.println("null pending");
                 }
 <<<<<<< HEAD:src/main/java/ServerPackage/Server.java
+<<<<<<< HEAD:src/main/java/ServerPackage/Server.java
 
+=======
+>>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
 =======
 >>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/Server.java
             }
