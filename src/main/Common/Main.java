@@ -2,7 +2,7 @@ package main.Common;
 
 import main.ServerPackage.BogFactory;
 import main.ServerPackage.BrugerFactory;
-import ServerPackage.LoginValidation;
+import main.ServerPackage.LoginValidation;
 
 import java.util.ArrayList;
 
