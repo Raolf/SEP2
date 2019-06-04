@@ -19,10 +19,7 @@ public class LoginValidation {
         try {
             Class.forName("org.postgresql.Driver");
 <<<<<<< HEAD:src/main/java/ServerPackage/LoginValidation.java
-<<<<<<< HEAD:src/main/java/ServerPackage/LoginValidation.java
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
-=======
->>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/LoginValidation.java
 =======
 >>>>>>> parent of b02d782... Client-branch Merge:src/main/java/ServerPackage/LoginValidation.java
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres",DBpass );
