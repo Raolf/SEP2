@@ -26,6 +26,10 @@ public class Klient {
                 ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
 
+
+
+
+
                 outToServer.writeObject("login.bob.123");
 
                 System.out.println("Order sent");

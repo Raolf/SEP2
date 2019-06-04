@@ -94,9 +94,8 @@ public class UserHost implements Runnable{
             }
         }
     }
-    public synchronized void message(String message){
+    public void message(String message){
         this.message = message;
-
     }
     public int getBID(){
         return bruger.getBrugerID();
