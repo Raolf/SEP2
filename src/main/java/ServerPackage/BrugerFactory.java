@@ -12,6 +12,7 @@ public class BrugerFactory {
     private Superbruger superbruger;
     private SuperBogListe Liste;
     private SingleBrugerListe singleBrugerListe;
+    String DBpass = "Juh88bxr";
 
     public BrugerFactory(SuperBogListe Liste){
         this.Liste = Liste;
@@ -22,7 +23,7 @@ public class BrugerFactory {
         Statement stmt = null;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", DBpass);
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
@@ -64,7 +65,7 @@ public class BrugerFactory {
         Bogliste bogliste=new Bogliste(arrayList);
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", DBpass);
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
@@ -106,7 +107,7 @@ public class BrugerFactory {
         Statement stmt = null;
         try {
             Class.forName("org.postgresql.Driver");
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "antonbanton1");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", DBpass);
 
             System.out.println("Database open ok");
 
