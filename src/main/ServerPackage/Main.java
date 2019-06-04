@@ -1,5 +1,6 @@
 package main.ServerPackage;
 
+import ClientPackage.Klient;
 import main.Common.SingleBrugerListe;
 
 public class Main {

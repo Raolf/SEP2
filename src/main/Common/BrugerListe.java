@@ -10,7 +10,7 @@ public class BrugerListe {
     }
 
     public Bruger getBruger(int brugerNr){
-        return Liste.get(brugerNr-2);
+        return Liste.get(brugerNr-1);
     }
 
     public void addBruger(Bruger bruger){

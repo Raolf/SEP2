@@ -12,7 +12,7 @@ public class BogFactory {
 
     private Bog bog;
     private SuperBogListe Liste;
-    String DBpass = "2011zNTGG";
+    String DBpass = "Juh88bxr";
 
     public BogFactory(SuperBogListe Liste){
         this.Liste = Liste;
@@ -41,13 +41,13 @@ public class BogFactory {
 
                 Liste.addBog(bog);
 
-                /*System.out.println("Tekst = " + tekst);
+                System.out.println("Tekst = " + tekst);
                 System.out.println("Titel = " + titel);
                 System.out.println("Forfatter = " + forfatter);
                 System.out.println("BogID = " + bogID);
                 System.out.println("Emne = " + emne);
                 System.out.println("Sprog = " + sprog);
-                System.out.println();*/
+                System.out.println();
             }
             rs.close();
             stmt.close();
@@ -69,7 +69,7 @@ public class BogFactory {
 
             System.out.println("Database open ok");
 
-//            System.out.println(bog.getTekst());
+            System.out.println(bog.getTekst());
 
             stmt = c.createStatement();
             String sql = "INSERT INTO \"Bibliotek\".bog values ('" + bog.getTekst() + "','"+ bog.getTitel() + "','" + bog.getForfatter() + "','" + bog.getBogID() + "','" + bog.getEmne() + "','" + bog.getSprog() + "');";
