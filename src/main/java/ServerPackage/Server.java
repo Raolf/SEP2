@@ -40,6 +40,9 @@ public class Server implements Runnable{
             serverSocket = new ServerSocket(port);
             Socket socket = serverSocket.accept();
 
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+
             Thread thread = new Thread(new Server(port));
             thread.start();
 
@@ -49,11 +52,11 @@ public class Server implements Runnable{
 
 
 
-                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+
+
 
                 String input = (String) inputStream.readObject();
-                inputStream.
+
                 clientAddress = socket.getInetAddress();
 
                 System.out.println(input);
@@ -83,7 +86,7 @@ public class Server implements Runnable{
                         }
                     }
                 }else if(clientList.contains(clientAddress)){
-                    if((order.size()> 0) && order.get(0).equals("hail")){
+                    if((order.size()> 0)){
                         System.out.println("Besked modtaget: "+input);
                         userT.message(input);
                     }
@@ -99,7 +102,6 @@ public class Server implements Runnable{
                 }else{
                     System.out.println("null pending");
                 }
-
             }
         } catch (IOException e) {
             e.printStackTrace();

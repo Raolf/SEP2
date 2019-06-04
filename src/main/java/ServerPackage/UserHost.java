@@ -50,11 +50,11 @@ public class UserHost implements Runnable{
 
             for (Object object:classList) {
                 if (orderlist != null){
-                    if(object.getClass().getSimpleName() == orderlist.get(0)){
+                    if(object.getClass().getSimpleName().equals(orderlist.get(0))){
                         chosenObject = object;
                         methods = object.getClass().getDeclaredMethods();
                         for (Method method:methods){
-                            if (method.getName() == orderlist.get(2)){
+                            if (method.getName().equals(orderlist.get(2))){
                                 chosenAction = method;
                                 requiredParameters = method.getParameterTypes();
                                 if (requiredParameters != null) {
