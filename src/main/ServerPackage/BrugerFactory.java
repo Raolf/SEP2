@@ -1,5 +1,5 @@
 package main.ServerPackage;
-import main.Common.*;
+import Common.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ public class BrugerFactory {
     private Superbruger superbruger;
     private SuperBogListe Liste;
     private SingleBrugerListe singleBrugerListe;
-    String DBpass = "2011zNTGG";
+    String DBpass = "Juh88bxr";
 
     public BrugerFactory(SuperBogListe Liste){
         this.Liste = Liste;
@@ -42,11 +42,11 @@ public class BrugerFactory {
 
                 singleBrugerListe.addBruger(bruger);
 
-                /*System.out.println("Brugernavn = " + brugernavn);
+                System.out.println("Brugernavn = " + brugernavn);
                 System.out.println("Password = " + password);
                 System.out.println("BrugerID = " + brugerID);
                 System.out.println("SuperBruger = " + issuperbruger);
-                System.out.println();*/
+                System.out.println();
             }
             rs.close();
             stmt.close();
