@@ -61,7 +61,6 @@ public class Server implements Runnable{
                 System.out.println("Order Size:" + order.size());
                 if (clientList.size() > 0 && !clientList.contains(clientAddress)){
                     if((order.size()> 0) && order.get(0) == "login"){
-                        //for (singleBrugerListe)
                         pending = ("Forbindelse oprettet");
                         clientList.add(clientAddress);
                         System.out.println("Forbindelse oprettet");
@@ -70,7 +69,9 @@ public class Server implements Runnable{
                             if(valBruger != 0){
                                 newUserHost(brugerListe.getBruger(valBruger));
                                 System.out.println("New User Host Created");
+                                pending = ("1");
                             } else{
+                                pending = ("0");
                                 System.out.println("Login Failed");
                             }
                         }
