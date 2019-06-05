@@ -1,5 +1,6 @@
 package main.ClientPackage;
 
+import main.Common.Bruger;
 import main.UI.clientUI;
 import javafx.application.Application;
 
@@ -26,30 +27,20 @@ public class Klient {
                 ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
 
-
-
-
-
                 outToServer.writeObject("login.bob.123");
 
                 System.out.println("Order sent");
                 String o = (String)inFromServer.readObject();
                 System.out.println(o);
 
-                outToServer.writeObject("Bruger.getBogListe");
+                outToServer.writeObject("Bruger.getBrugerID");
 
                 o = (String) inFromServer.readObject();
                 System.out.println(o);
 
-
                 System.out.println("UI launched");
                 Application.launch(ui.getClass());
                 System.out.println("UI exited");
-
-
-
-
-
 
             } catch (UnknownHostException e) {
                 e.printStackTrace();

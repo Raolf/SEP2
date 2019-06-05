@@ -22,6 +22,7 @@ public class Server implements Runnable{
     SuperBogListe superBogListe = new SuperBogListe(new ArrayList());
     int valBruger;
     UserHost userT;
+    String input = null;
 
 
     public Server (int port){
@@ -43,52 +44,55 @@ public class Server implements Runnable{
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 
+            LoginValidation logVal = new LoginValidation();
+            clientAddress = socket.getInetAddress();
 
-            while(true){
-                LoginValidation logVal = new LoginValidation();
-                System.out.println(singleBrugerListe);
+            while(true) {
 
+                if(socket.getInputStream().available() != 0){
+                    //ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+                    input = (String) inputStream.readObject();
+                }
 
-                String input = (String) inputStream.readObject();
-                clientAddress = socket.getInetAddress();
+                if(input != null){
+                    System.out.println("Processing input");
 
-                ArrayList<String> order = new ArrayList<String>(Arrays.asList(input.split("\\.")));
-                System.out.println(order.get(0));
-                System.out.println("Order Size:" + order.size());
-                if (!clientList.contains(clientAddress)){
-                    if((order.size()> 0) && order.get(0).equals("login")){
-                        pending = ("Forbindelse oprettet");
-                        clientList.add(clientAddress);
-                        System.out.println("Forbindelse oprettet");
-                        if (order.size() > 1){
-                            valBruger = logVal.validerLogin(new LoginInf(order.get(1),order.get(2)));
-                            if(valBruger != 0){
-                                newUserHost(brugerListe.getBruger(valBruger));
-                                System.out.println("New User Host Created" + " " +valBruger);
+                    System.out.println("Input is: " + input);
 
-                            } else{
-                                System.out.println("Login Failed");
+                    ArrayList<String> order = new ArrayList<String>(Arrays.asList(input.split("\\.")));
+                    System.out.println(order.get(0));
+                    System.out.println("Order Size:" + order.size());
+                    if (!clientList.contains(clientAddress)) {
+                        if ((order.size() > 0) && order.get(0).equals("login")) {
+                            pending = ("Forbindelse oprettet");
+                            clientList.add(clientAddress);
+                            System.out.println("Forbindelse oprettet");
+                            if (order.size() > 1) {
+                                valBruger = logVal.validerLogin(new LoginInf(order.get(1), order.get(2)));
+                                if (valBruger != 0) {
+                                    newUserHost(brugerListe.getBruger(valBruger));
+                                    System.out.println("New User Host Created" + " " + valBruger);
+                                } else {
+                                    System.out.println("Login Failed");
+                                }
                             }
+                        }
+                    } else if (clientList.contains(clientAddress)) {
+                        if ((order.size() > 0)) {
+                            System.out.println("Besked modtaget: " + input);
+                            userT.message(input);
+                            input = null;
                         }
                     }
                 }
-                else if(clientList.contains(clientAddress)){
-                    if((order.size()> 0)){
-                        System.out.println("Besked modtaget: "+input);
-                        userT.message(input);
-                    }
-                }
-
-                if (pending != null){
+                if (pending != null) {
                     outputStream.writeObject(pending);
-                    System.out.println("Sending: "+ pending);
+                    System.out.println("Sending: " + pending);
                     pending = null;
-                }else{
+                } else {
                     System.out.println("null pending");
                 }
-
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -106,6 +110,7 @@ public class Server implements Runnable{
     }
     public synchronized void send(Object obj) {
         pending = obj;
+        System.out.println("server pending: "+ pending + " from: " + obj);
     }
 
     public SuperBogListe getSuperBogliste(){
