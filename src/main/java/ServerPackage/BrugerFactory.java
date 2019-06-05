@@ -134,4 +134,36 @@ public class BrugerFactory {
         System.out.println("Database update ok");
     }
 
+    public void updateBooks(Bruger bruger){
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            Class.forName("org.postgresql.Driver");
+            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", DBpass);
+            System.out.println("Database open ok");
+            stmt = c.createStatement();
+
+            StringBuilder stringBuilder= new StringBuilder();
+            for (int i=0; i<bruger.getBogliste().getListe().size(); i++){
+
+                stringBuilder.append(bruger.getBogliste().getBog(i).getBogID());
+                stringBuilder.append(':');
+            }
+            if(stringBuilder.lastIndexOf(stringBuilder.toString())==':'){
+                stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(stringBuilder.toString()));
+            }
+
+            System.out.println(stringBuilder.toString());
+
+            String sql = "UPDATE \"Bibliotek\".bruger SET books = '"+ stringBuilder.toString() +"' where brugerid = '"+bruger.getBrugerID()+"'";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Database update ok");
+    }
 }
