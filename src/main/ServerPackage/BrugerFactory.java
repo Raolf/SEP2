@@ -12,7 +12,7 @@ public class BrugerFactory {
     private Superbruger superbruger;
     private SuperBogListe Liste;
     private SingleBrugerListe singleBrugerListe;
-    String DBpass = "2011zNTGG";
+    String DBpass = "Juh88bxr";
 
     public BrugerFactory(SuperBogListe Liste){
         this.Liste = Liste;

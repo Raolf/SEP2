@@ -12,7 +12,7 @@ public class BogFactory {
 
     private Bog bog;
     private SuperBogListe Liste;
-    String DBpass = "2011zNTGG";
+    String DBpass = "Juh88bxr";
 
     public BogFactory(SuperBogListe Liste){
         this.Liste = Liste;

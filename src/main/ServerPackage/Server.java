@@ -22,14 +22,15 @@ public class Server implements Runnable{
     SuperBogListe superBogListe = new SuperBogListe(new ArrayList());
     int valBruger;
     UserHost userT;
+    Bruger inBruger;
     String input = null;
-
+    BogFactory bogf = new BogFactory(superBogListe);
+    BrugerFactory brugerf = new BrugerFactory(superBogListe);
 
     public Server (int port){
         this.port = port;
-        BogFactory bogf = new BogFactory(superBogListe);
+
         bogf.hentBog();
-        BrugerFactory brugerf = new BrugerFactory(superBogListe);
         brugerf.hentBruger();
 
     }
@@ -50,20 +51,22 @@ public class Server implements Runnable{
             while(true) {
 
                 if(socket.getInputStream().available() != 0){
-                    //ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
                     input = (String) inputStream.readObject();
                 }
 
                 if(input != null){
-                    System.out.println("Processing input");
-
                     System.out.println("Input is: " + input);
 
                     ArrayList<String> order = new ArrayList<String>(Arrays.asList(input.split("\\.")));
                     System.out.println(order.get(0));
                     System.out.println("Order Size:" + order.size());
                     if (!clientList.contains(clientAddress)) {
-                        if ((order.size() > 0) && order.get(0).equals("login")) {
+                        if ((order.size() > 0) && order.get(0).equals("New")){
+                            inBruger = (Bruger) inputStream.readObject();
+                            brugerf.lavBruger(inBruger);
+                            brugerListe.addBruger(inBruger);
+                        }
+                        else if ((order.size() > 0) && order.get(0).equals("login")) {
                             pending = ("Forbindelse oprettet");
                             clientList.add(clientAddress);
                             System.out.println("Forbindelse oprettet");
@@ -89,8 +92,6 @@ public class Server implements Runnable{
                     outputStream.writeObject(pending);
                     System.out.println("Sending: " + pending);
                     pending = null;
-                } else {
-                    System.out.println("null pending");
                 }
             }
         } catch (IOException e) {

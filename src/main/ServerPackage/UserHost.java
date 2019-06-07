@@ -46,40 +46,25 @@ public class UserHost implements Runnable{
         while(true){
             if(message != null){
                 orderlist = new ArrayList<String>(Arrays.asList(message.split("\\.")));
-                System.out.println(classList.size());
                 message = null;
 
                 for (Object object:classList) {
-                    System.out.println("Object: " + object.getClass());
-
-                    System.out.println("Object: " + object.getClass().getSimpleName());
-                    System.out.println("Orderlist 0: " + orderlist.get(0));
                     if (orderlist != null && orderlist.get(0) != null){
-                        System.out.println(object.getClass().getSimpleName().equals(orderlist.get(0)));
                         if(object.getClass().getSimpleName().equals(orderlist.get(0))){
                             chosenObject = object;
-                            System.out.println("found object"+chosenObject);
                             methods = object.getClass().getDeclaredMethods();
-                            System.out.println("Target Method: " + orderlist.get(1));
                             for (Method method:methods){
-
-                                System.out.println("Method: " + method.getName());
                                 if (method.getName().equals(orderlist.get(1))){
                                     chosenAction = method;
-                                    System.out.println("found method"+chosenAction);
                                     requiredParameters = method.getParameterTypes();
-                                    System.out.println("");
                                     if (requiredParameters != null && requiredParameters.length>0 && requiredParameters[0].isPrimitive()) {
                                         try {
-                                            System.out.println("Executing:" + chosenAction + "On: " + chosenObject + "With Parameters: " + orderlist.get(2));
                                             retur = method.invoke(chosenObject,Integer.parseInt(orderlist.get(2)));
                                         } catch (IllegalAccessException e) {
                                             e.printStackTrace();
                                         } catch (InvocationTargetException e) {
                                             e.printStackTrace();
                                         }
-                                        System.out.println("For Loop Done");
-                                        //orderArray = (String[]) orderlist.toArray();
                                     } else {
                                         try {
                                             System.out.println("Executing:" + chosenAction + "On: " + chosenObject/* + "With Parameters: " + orderlist.get(2)*/);
